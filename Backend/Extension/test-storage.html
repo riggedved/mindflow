@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Extension Storage</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .status {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        button {
+            background: #6366f1;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #4f46e5; }
+        pre {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 MindFlow Extension Storage Test</h1>
+    
+    <div id="status"></div>
+    
+    <button onclick="checkStorage()">Check Storage</button>
+    <button onclick="clearStorage()">Clear Storage</button>
+    <button onclick="testAuth()">Test Backend Auth</button>
+    
+    <div id="output"></div>
+    
+    <script>
+        const statusDiv = document.getElementById('status');
+        const outputDiv = document.getElementById('output');
+        
+        function showStatus(message, type = 'info') {
+            statusDiv.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+        
+        function showOutput(data) {
+            outputDiv.innerHTML = `<h3>Storage Contents:</h3><pre>${JSON.stringify(data, null, 2)}</pre>`;
+        }
+        
+        async function checkStorage() {
+            showStatus('Checking storage...', 'info');
+            
+            chrome.storage.local.get(['token', 'user'], (result) => {
+                if (chrome.runtime.lastError) {
+                    showStatus('❌ Error: ' + chrome.runtime.lastError.message, 'error');
+                    return;
+                }
+                
+                if (result.token && result.user) {
+                    showStatus(`✅ AUTHENTICATED as ${result.user.email}`, 'success');
+                    showOutput(result);
+                } else if (result.token) {
+                    showStatus('⚠️ Token exists but no user info', 'error');
+                    showOutput(result);
+                } else {
+                    showStatus('❌ NOT AUTHENTICATED - No token found', 'error');
+                    showOutput(result);
+                }
+            });
+        }
+        
+        async function clearStorage() {
+            chrome.storage.local.clear(() => {
+                showStatus('✅ Storage cleared', 'success');
+                outputDiv.innerHTML = '';
+            });
+        }
+        
+        async function testAuth() {
+            showStatus('Testing backend connection...', 'info');
+            
+            try {
+                const response = await fetch('http://localhost:8000/api/v1/extension/info');
+                const data = await response.json();
+                showStatus('✅ Backend is reachable', 'success');
+                outputDiv.innerHTML = `<h3>Backend Info:</h3><pre>${JSON.stringify(data, null, 2)}</pre>`;
+            } catch (error) {
+                showStatus('❌ Backend connection failed: ' + error.message, 'error');
+            }
+        }
+        
+        // Auto-check on load
+        window.addEventListener('load', checkStorage);
+    </script>
+</body>
+</html>

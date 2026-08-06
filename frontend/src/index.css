@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 210 26% 6%;
+    --foreground: 210 36% 93%;
+
+    --card: 213 26% 10%;
+    --card-foreground: 210 36% 93%;
+
+    --popover: 213 26% 10%;
+    --popover-foreground: 210 36% 93%;
+
+    --primary: 251 100% 68%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 213 23% 15%;
+    --secondary-foreground: 210 36% 93%;
+
+    --muted: 214 32% 17%;
+    --muted-foreground: 210 18% 72%;
+
+    --accent: 251 100% 68%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 213 23% 15%;
+    --input: 213 23% 15%;
+    --ring: 251 100% 68%;
+
+    --radius: 1rem;
+
+    --success: 146 64% 55%;
+    --tag-neutral: 214 32% 17%;
+    --card-hover-glow: 251 100% 68% / 0.25;
+
+    --sidebar-background: 213 26% 10%;
+    --sidebar-foreground: 210 36% 93%;
+    --sidebar-primary: 251 100% 68%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 213 23% 15%;
+    --sidebar-accent-foreground: 210 36% 93%;
+    --sidebar-border: 213 23% 15%;
+    --sidebar-ring: 251 100% 68%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Global animations used by FuturisticBackground and Landing */
+@keyframes drift {
+  0% { transform: translate3d(0,0,0) scale(1); filter: brightness(1); }
+  50% { transform: translate3d(22px,-30px,0) scale(1.015); filter: brightness(1.06); }
+  100% { transform: translate3d(-24px,26px,0) scale(0.985); filter: brightness(0.96); }
+}
+
+@keyframes orbitRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes gridShift {
+  0% { background-position: 0 0; }
+  50% { background-position: 60px 30px; }
+  100% { background-position: 0 0; }
+}
+
+@keyframes starPulse {
+  0% { opacity: 0.55; transform: scale(0.985); }
+  50% { opacity: 0.75; transform: scale(1.02); }
+  100% { opacity: 0.55; transform: scale(0.985); }
+}

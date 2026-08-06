@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "MindFlow Capture",
+  "version": "1.0.0",
+  "description": "Save text, links, images, and videos from any webpage directly to your MindFlow dashboard with AI-powered organization",
+  "permissions": [
+    "contextMenus",
+    "storage",
+    "activeTab",
+    "notifications",
+    "scripting"
+  ],
+  "host_permissions": [
+    "http://localhost:8000/*",
+    "http://localhost:8080/*",
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-script.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "48": "icons/icon48.svg"
+    }
+  },
+  "icons": {
+    "48": "icons/icon48.svg"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "icons/*.svg",
+        "icons/*.png",
+        "extension.config.json",
+        "device_token.json"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

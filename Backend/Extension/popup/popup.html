@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MindFlow Extension</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Not logged in state -->
+    <div id="not-authenticated" class="state">
+      <div class="header">
+        <h1>MindFlow</h1>
+        <p class="subtitle">Capture & organize with AI</p>
+      </div>
+      
+      <div class="content">
+        <div class="features">
+          <div class="feature">
+            <span class="icon">✨</span>
+            <span>Right-click to save content</span>
+          </div>
+          <div class="feature">
+            <span class="icon">🤖</span>
+            <span>AI auto-tags your items</span>
+          </div>
+          <div class="feature">
+            <span class="icon">🔍</span>
+            <span>Smart search & spaces</span>
+          </div>
+        </div>
+        
+        <p class="link-hint">To link this installation: download the "Linked" extension from your MindFlow dashboard while signed in.</p>
+        
+        <button id="signin-btn" class="primary-btn">
+          Open MindFlow Dashboard
+        </button>
+      </div>
+    </div>
+    
+    <!-- Logged in state -->
+    <div id="authenticated" class="state hidden">
+      <div class="header">
+        <h1>MindFlow</h1>
+      </div>
+      
+      <div class="content">
+        <div class="user-profile">
+          <img id="user-avatar" class="avatar" alt="User avatar">
+          <div class="user-info">
+            <p id="user-name" class="name"></p>
+            <p id="user-email" class="email"></p>
+          </div>
+        </div>
+        
+        <div class="actions">
+          <a id="open-dashboard" href="#" target="_blank" class="link-btn">
+            Open Dashboard
+          </a>
+          <button id="logout-btn" class="secondary-btn">
+            Unlink device
+          </button>
+        </div>
+        
+        <div class="tip">
+          <span class="icon">💡</span>
+          <span>Right-click any content to save to MindFlow</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Loading state -->
+    <div id="loading" class="state hidden">
+      <div class="loader"></div>
+      <p>Signing in...</p>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

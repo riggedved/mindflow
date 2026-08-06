@@ -1,0 +1,4 @@
+{
+  "api_base_url": "http://localhost:8000",
+  "dashboard_url": "http://localhost:8080"
+}

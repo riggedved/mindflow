@@ -1,0 +1,6 @@
+{
+  "routes": [
+    { "src": "^/(api|assets|favicon\\.ico|robots\\.txt)/?.*", "dest": "/$0" },
+    { "src": "/.*", "dest": "/index.html" }
+  ]
+}

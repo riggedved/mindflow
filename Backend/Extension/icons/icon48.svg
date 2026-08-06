@@ -1,0 +1,13 @@
+<!-- SVG Icon 48x48 for MindFlow Extension -->
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="24" cy="24" r="22" fill="#6366f1"/>
+  
+  <!-- Brain/Mind icon -->
+  <path d="M24 10C18 10 13 14 13 20C13 22 13.5 23.5 14.5 25L14 26C13 27 12 28.5 12 30.5C12 33.5 14.5 36 17.5 36H30.5C33.5 36 36 33.5 36 30.5C36 28.5 35 27 34 26L33.5 25C34.5 23.5 35 22 35 20C35 14 30 10 24 10Z" fill="white" opacity="0.9"/>
+  
+  <!-- Details -->
+  <circle cx="19" cy="20" r="2" fill="#6366f1"/>
+  <circle cx="29" cy="20" r="2" fill="#6366f1"/>
+  <path d="M20 27C20 27 22 29 24 29C26 29 28 27 28 27" stroke="#6366f1" stroke-width="2" stroke-linecap="round"/>
+</svg>
