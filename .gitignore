@@ -27,7 +27,7 @@ frontend/dist-ssr
 *.sw?
 
 # Certificates
-app/certs/prod-ca-2021.crt
+certs/prod-ca-2021.crt
 
 # Environment variables
 .env
