@@ -15,6 +15,7 @@ from app.services.space_service import SpaceService
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse, parse_qs
+from app.core.config import settings
 
 
 def _looks_like_url(value: Optional[str]) -> bool:
@@ -786,6 +787,7 @@ async def delete_item(
             Item.user_id == current_user.id
         )
     )
+
     item = result.scalar_one_or_none()
 
     if not item:
@@ -793,14 +795,12 @@ async def delete_item(
 
     # Delete associated file from Supabase Storage
     if item.storage_path:
-        try:
-            supabase.storage.from_(settings.SUPABASE_BUCKET).remove(
-                [item.storage_path]
-            )
+        deleted = await supabase_service.delete_file(item.storage_path)
+
+        if deleted:
             print(f"Deleted storage file: {item.storage_path}")
-        except Exception as e:
-            # Don't prevent database deletion if Storage cleanup fails
-            print(f"Failed to delete storage file: {e}")
+        else:
+            print(f"Could not delete storage file: {item.storage_path}")
 
     # Delete database record
     await db.delete(item)
