@@ -778,16 +778,32 @@ async def delete_item(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db)
 ):
-    """Delete an item"""
+    """Delete an item and its associated file from Supabase Storage."""
+
     result = await db.execute(
-        select(Item).where(Item.id == item_id, Item.user_id == current_user.id)
+        select(Item).where(
+            Item.id == item_id,
+            Item.user_id == current_user.id
+        )
     )
     item = result.scalar_one_or_none()
-    
+
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
-    
+
+    # Delete associated file from Supabase Storage
+    if item.storage_path:
+        try:
+            supabase.storage.from_(settings.SUPABASE_BUCKET).remove(
+                [item.storage_path]
+            )
+            print(f"Deleted storage file: {item.storage_path}")
+        except Exception as e:
+            # Don't prevent database deletion if Storage cleanup fails
+            print(f"Failed to delete storage file: {e}")
+
+    # Delete database record
     await db.delete(item)
     await db.commit()
-    
+
     return {"message": "Item deleted successfully"}
