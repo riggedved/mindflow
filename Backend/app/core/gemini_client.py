@@ -42,8 +42,8 @@ async def generate_tags(text: str):
     Generate tags, category, and title using Gemini 2.5 Flash (Latest stable free model)
     """
     try:
-        # Use gemini-2.5-flash (latest stable free tier model)
-        model = genai.GenerativeModel('gemini-2.5-flash')
+        # Use gemini-3.6-flash (latest stable free tier model)
+        model = genai.GenerativeModel('gemini-3.6-flash')
         
         prompt = f"""Analyze this content and extract exactly 6 concise tags, a single category, and a descriptive title.
         
@@ -90,7 +90,7 @@ async def generate_description(text: str) -> str:
     Generate a short (1-2 sentence) description/summary for a piece of text.
     """
     try:
-        model = genai.GenerativeModel('gemini-2.5-flash')
+        model = genai.GenerativeModel('gemini-3.6-flash')
         prompt = f'''Summarize the following content in one to two concise sentences suitable as a human-friendly description.
 
 Content: {text}
@@ -119,7 +119,7 @@ async def analyze_image(image_url: str, title: str = ""):
         
         image = Image.open(io.BytesIO(image_data))
         
-        model = genai.GenerativeModel('gemini-2.5-flash')
+        model = genai.GenerativeModel('gemini-3.6-flash')
         
         prompt = f"""Analyze this image and extract exactly 6 concise, descriptive tags, a single category, a descriptive title, and a brief description.
 
@@ -179,7 +179,7 @@ async def analyze_video(video_url: str, title: str = ""):
             response.raise_for_status()
             video_data = response.content
         
-        model = genai.GenerativeModel('gemini-2.5-flash')
+        model = genai.GenerativeModel('gemini-3.6-flash')
         
         # Create a temporary file
         import tempfile
@@ -281,7 +281,7 @@ async def generate_content(prompt: str) -> str:
     Used for general AI text generation tasks
     """
     try:
-        model = genai.GenerativeModel('gemini-2.5-flash')
+        model = genai.GenerativeModel('gemini-3.6-flash')
         response = await _call_with_retries(lambda: model.generate_content(prompt))
         return response.text
     except Exception as e:
