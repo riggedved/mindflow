@@ -12,7 +12,11 @@ app.add_middleware(SessionMiddleware, secret_key=settings.JWT_SECRET)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8080", "http://localhost:5173", "https://mind-flow-steel.vercel.app"],
+    allow_origins=[
+        "http://localhost:8080",
+        "http://localhost:5173",
+        "https://mindflow-vexy1.vercel.app",
+    ],
     allow_origin_regex=r"^chrome-extension://.*$",
     allow_credentials=True,
     allow_methods=["*"],
